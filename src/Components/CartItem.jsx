@@ -16,7 +16,7 @@ function Cartitem() {
   // subscribing to slice using useSelector
   const cartItems = useSelector((store) => store.cart.items);
   // filtering the item from the added cart items
-  let filtered = cartItems.filter((carts) => carts.id == params.id);
+  let filtered = cartItems.filter((carts) => carts._id === params.id);
 
   return (
     <>

@@ -1,33 +1,38 @@
 import "./Style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping,faUser } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-import useCustomHook from "../utils/useCustomHook";
 import { Link } from "react-router-dom";
+import Signin from "./Signin";
 
 function Header(props) {
   const [searchText, setSearchText] = useState("");
-  // using custom hook from utils data
-  const { data, error, loading } = useCustomHook(
-    "https://dummyjson.com/products"
-  );
-  const [search, setSearch] = useState([]);
-  // fetching the custom hook and checking if the data is fetched or not
-  useEffect(() => {
-    if (data) {
-      setSearch(data.products);
-      filteredProducts();
-    }
-  }, [data]);
-  // error msg for custom hook fecthing
-  if (error) {
-    return <p>Error in loading data: {error} </p>;
+  // to control the signin form as visible or not visible
+  const [visible,setVisible] =useState(false);
+  const openModel = () => {
+    setVisible(true);
   }
-  // loading msg for custom hook fecthing
+  const closeModel =() =>{
+    setVisible(false);
+  }
 
-  if (loading) {
-    return <h2 className="load">Loading .....</h2>;
-  }
+  const [search, setSearch] = useState([]);
+  // fetching the data and checking if the data is fetched or not
+  useEffect(() => {
+   fetchData();
+  },[]);
+  async function fetchData() {
+    const token = localStorage.getItem("accessToken");
+    const res = await fetch("http://localhost:4000/products",{
+      method:"GET",
+          headers: {
+            'Content-Type': 'application/json',
+            authorisation:`JWT ${token}`
+          },
+    })
+    const data = await res.json();
+    setSearch(data);
+  } 
   // function to target the value of input from the user
   function updateSearch(e) {
     setSearchText(e.target.value);
@@ -61,6 +66,13 @@ function Header(props) {
           />
           <button onClick={filteredProducts}>Search</button>
         </div>
+        <div>
+          <Link>
+          <h2>
+          <FontAwesomeIcon icon={faUser} /><button className="btn-signin" onClick={openModel}>SignIn</button>
+          </h2>
+          </Link>
+        </div>
         <div className="hover">
           <Link to="/cart">
             <h2>
@@ -69,6 +81,7 @@ function Header(props) {
           </Link>
         </div>
       </nav>
+      <Signin visible={visible} onClose={closeModel} />
     </>
   );
 }

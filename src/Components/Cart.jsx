@@ -9,6 +9,7 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 function Cart() {
   // subscribing to slice using useSelector
   const cartItems = useSelector((store) => store.cart.items);
+  
   if (cartItems == 0) {
     return (
       <>
@@ -28,7 +29,7 @@ function Cart() {
   }
   return (
     <>
-      <div>
+    
         <div className="backtohome">
           {/* creating a link to go back to home */}
           <Link to="/">
@@ -42,15 +43,12 @@ function Cart() {
           {/* mapping through the cartitems to display all the added cart items by user */}
           {cartItems.map((item) => {
             return (
-              <div key={item.id}>
-                <Link to={`/cartitem/${item.id}`} key={item.id}>
-                  <Cartdetails key={item.id} details={item}></Cartdetails>
-                </Link>
-              </div>
-            );
-          })}
+            <Link to={`/cartitem/${item._id}`} key={item._id}>
+              <Cartdetails key={item._id} details={item}></Cartdetails>
+            </Link>
+          )})}
         </div>
-      </div>
+  
     </>
   );
 }

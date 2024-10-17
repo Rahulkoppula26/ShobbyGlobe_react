@@ -8,10 +8,8 @@ const cartSlice = createSlice({
   reducers: {
     // adding an item
     addItem: (state, action) => {
-      let item = state.items.find((item) => item.id == action.payload.id);
-
+      let item = state.items.find((item) => item._id == action.payload._id);
       const data = { ...action.payload, quantity: 1 };
-
       if (!item) {
         state.items.push(data);
       } else {
@@ -20,10 +18,10 @@ const cartSlice = createSlice({
     },
     // removing an item
     removeItem: (state, action) => {
-      let item = state.items.find((item) => item.id == action.payload.id);
+      let item = state.items.find((item) => item._id == action.payload._id);
       item.quantity = "";
       if (item.quantity == 0) {
-        const arr = state.items.filter((item) => item.id != action.payload.id);
+        const arr = state.items.filter((item) => item._id != action.payload._id);
         state.items = arr;
       }
     },

@@ -12,7 +12,6 @@ const Notfound = lazy(() => import("./Components/Notfound.jsx"));
 const Productitem = lazy(() => import("./Components/Productitem.jsx"));
 const Cart = lazy(() => import("./Components/Cart.jsx"));
 const Cartitem = lazy(() => import("./Components/CartItem.jsx"));
-
 // creating a react router
 const appRouter = createBrowserRouter([
   {

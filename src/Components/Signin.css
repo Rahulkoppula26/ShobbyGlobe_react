@@ -1,0 +1,126 @@
+
+/* signin component styling */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.signin-form{
+    width: 100%;
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    position: absolute;
+    top: 2%;
+    background-color: transparent;
+
+}
+.btn-signin {
+    background-color: transparent;
+    border: none;
+    font-size:x-large;
+    color: white;
+    font-family: sans-serif;
+}
+.btn-signin:hover{
+    background-color: transparent;
+    border: none;
+    transform: scale(1);
+}
+.form {
+    background-color: #fff;
+    display: block;
+    padding: 1rem;
+    max-width: 350px;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    background-color: white;
+
+}
+
+.form-title {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    color: #000;
+    background-color: white;
+}
+
+.input-container {
+    position: relative;
+    background-color: white;
+
+}
+.checkbox{
+    background-color: white;
+    color: #000;
+
+
+}
+.input-container input,
+.form .submit {
+    outline: none;
+    border: 1px solid #e5e7eb;
+    margin: 8px 0;
+
+}
+input{
+    color: #000;
+}
+.submit:hover{
+    background-color: #4F46E5;
+    color: #fff;
+    transform: scale(1);
+}
+/* styling input field */
+.input-container .input {
+    text-align: center;
+    border: 2px solid #e8e8e8;
+    border-radius: 10px;
+    background-color: #fffefe;
+    font-weight: bold;
+    padding: 0.8rem;
+    padding-right: 3rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    width: 300px;
+    color: rgb(7, 0, 0);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    
+}
+/* styling submit button */
+.submit {
+    display: block;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    background-color: #4F46E5;
+    color: #ffffff;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.signup-link {
+    color: #6B7280;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: center;
+    background-color: white;
+}
+
+.signup-link a {
+    text-decoration: underline;
+    margin-left: 15%;
+}
+.create{
+    background-color: white;
+    color: #000;
+}

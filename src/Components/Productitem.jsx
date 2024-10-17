@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import useCustomHook from "../utils/useCustomHook";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,26 +21,24 @@ function Productitem() {
   const params = useParams();
   // calling a reducer function using useDispatch (dispatching an action)
   const dispatch = useDispatch();
+  const id = params.id;
   // using custom hook from utils data
-  const { data, error, loading } = useCustomHook(
-    "https://dummyjson.com/products"
-  );
-  // fetching the custom hook and checking if the data is fetched or not and
-  //finding the exact product matched with params
-
   useEffect(() => {
-    if (data) {
-      setProdDetail(data.products.find((prod) => prod.id == params.id));
-    }
-  }, [data]);
-  // error msg for custom hook fecthing
-  if (error) {
-    return <p>Error in loading data: {error} </p>;
-  }
-  // loading msg for custom hook fecthing
-  if (loading) {
-    return <h2 className="load">Loading .....</h2>;
-  }
+    fetchData();
+  },[]);
+  async function fetchData() {
+    const token = localStorage.getItem("accessToken");
+    const res = await fetch(`http://localhost:4000/products/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorisation: `JWT ${token}`,
+      },
+    });
+    const data = await res.json();
+    setProdDetail(data);
+    
+  } 
   // using reducers to add item to cart
   function handleAddItem(prodDetail) {
     dispatch(addItem(prodDetail));

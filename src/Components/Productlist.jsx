@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import useCustomHook from "../utils/useCustomHook";
 import { Link } from "react-router-dom";
 import Productdetails from "./Productdetails";
 import Header from "./Header";
@@ -7,22 +6,24 @@ import Header from "./Header";
 function Productlist() {
   const [productsList, setProductsList] = useState([]);
   const [updatedProductsAre, setUpdatedProductsAre] = useState(productsList);
-  // using custom hook from utils data
-  const { data, error, loading } = useCustomHook(
-    "https://dummyjson.com/products"
-  );
-  useEffect(() => {
-    if (data) {
-      setProductsList(data.products);
-    }
-  }, [data]);
-  if (error) {
-    return <p>Error in loading data: {error} </p>;
-  }
-  if (loading) {
-    return <h2 className="load">Loading .....</h2>;
-  }
   // setting filtered products
+  useEffect(() => {
+    fetchData();
+  },[]);
+  // fnction to fetch the data from the routes using verification token
+  async function fetchData() {
+    const token = localStorage.getItem("accessToken");
+    const res = await fetch("http://localhost:4000/products",{
+      method:"GET",
+          headers: {
+            'Content-Type': 'application/json',
+            authorisation:`JWT ${token}`
+          },
+    });
+    const data = await res.json();
+    
+    setProductsList(data);
+  } 
   function filteringProducts(filtered) {
     setUpdatedProductsAre(filtered);
   }
@@ -34,14 +35,16 @@ function Productlist() {
           <Header filterFunction={filteringProducts}></Header>
         </div>
         <div className="all-cards">
-          {updatedProductsAre.map((product) => (
-            <Link to={`/product/${product.id}`} key={product.id}>
+          {updatedProductsAre.map((product) => {
+            return (
+              <Link to={`/product/${product._id}`} key={product._id}>
               <Productdetails
-                key={product.id}
+                key={product._id}
                 allDetails={product}
               ></Productdetails>
-            </Link>
-          ))}
+              </Link>
+            )
+          })}
         </div>
       </div>
     </>
